@@ -75,7 +75,9 @@ public class GraphColoringCSP {
 # Graph Coloring Problem Explanation
 
 ## Problem Statement:
-The graph coloring problem involves assigning colors to vertices of a graph such that no adjacent vertices share the same color, using at most M colors. This is a classic constraint satisfaction problem with applications in scheduling, register allocation in compilers, map coloring, and more.
+The graph coloring problem involves assigning colors to vertices of a graph such that no adjacent vertices share the same color, 
+using at most M colors. This is a classic constraint satisfaction problem with applications in scheduling, register allocation in 
+compilers, map coloring, and more.
 
 ## Explanation of functions used:
 
@@ -86,9 +88,12 @@ The graph coloring problem involves assigning colors to vertices of a graph such
 
 ## Basic explanation of general approach:
 
-The solution uses a backtracking algorithm, which is a depth-first search approach that explores potential solutions by trying each possible color for a vertex, then moving on to the next vertex. If at any point a vertex cannot be colored without creating a conflict, the algorithm backtracks to try a different color for a previous vertex.
+The solution uses a backtracking algorithm, which is a depth-first search approach that explores potential solutions by trying each 
+possible color for a vertex, then moving on to the next vertex. If at any point a vertex cannot be colored without creating a conflict, 
+the algorithm backtracks to try a different color for a previous vertex.
 
-This approach systematically explores the state space, pruning branches that cannot lead to valid solutions as early as possible. The algorithm guarantees finding a solution if one exists, or determining that no solution exists.
+This approach systematically explores the state space, pruning branches that cannot lead to valid solutions as early as possible. 
+The algorithm guarantees finding a solution if one exists, or determining that no solution exists.
 
 ## Explanation of variables:
 
@@ -133,6 +138,8 @@ In this tree:
 - The algorithm traverses this tree using depth-first search with backtracking
 - When it reaches a leaf node with all vertices colored, it has found a solution
 
-The graph coloring problem is NP-complete, meaning the worst-case time complexity is exponential (O(m^n)), where m is the number of colors and n is the number of vertices.
- However, the backtracking approach with constraint checking significantly reduces the practical running time by quickly pruning invalid branches of the search tree.
+The graph coloring problem is NP-complete, meaning the worst-case time complexity is exponential (O(m^n)), where m is the number 
+of colors and n is the number of vertices.
+ However, the backtracking approach with constraint checking significantly reduces the practical running time by quickly pruning 
+ invalid branches of the search tree.
 */
