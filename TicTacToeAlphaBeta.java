@@ -176,3 +176,90 @@ public class TicTacToeAlphaBeta {
         Move(int r, int c) { row = r; col = c; }
     }
 }
+
+// TicTacToe with Alpha-Beta Pruning Explanation
+// Problem Statement:
+// The code implements a Tic-Tac-Toe game where a human player competes against an AI opponent. The AI uses the Minimax algorithm with Alpha-Beta Pruning to make optimal decisions. The human player uses 'X' while the AI uses 'O', and they take turns placing their symbols on a 3x3 board until one player wins or the game ends in a draw.
+// Theory:
+// 🔹 Minimax Algorithm: A decision-making algorithm used in two-player games to find the optimal move. It works by evaluating all possible future game states and choosing the move that maximizes the AI's chances of winning while assuming the opponent plays optimally.
+// 🔹 Alpha-Beta Pruning: An optimization technique for the Minimax algorithm that reduces the number of nodes evaluated. It stops evaluating a move when it determines that the move is worse than a previously examined move, which helps save computational resources.
+// 🔹 Game Tree: A tree structure representing all possible game states, where each node is a board configuration and edges represent moves.
+// Constraints:
+// 🔹 Board size: 3x3 grid
+// 🔹 Two players: Human (X) and AI (O)
+// 🔹 Legal moves: Only empty cells can be selected
+// 🔹 Win condition: Three of the same symbol in a row, column, or diagonal
+// Input:
+// 🔹 Human player inputs row and column coordinates (0-2) to place their 'X'
+// Output:
+// 🔹 Visual representation of the board after each move
+// 🔹 Announcement of the game result (win, loss, or draw)
+// ⚙️ Functions Explained
+
+// main(): Entry point that initializes the game, handles the game loop, and alternates between human and AI moves until the game ends.
+// minimax(depth, isMax, alpha, beta): Implements the Minimax algorithm with Alpha-Beta Pruning to determine the best possible move for the AI.
+
+// Recursively evaluates possible moves to determine their score
+// Uses alpha-beta pruning to avoid evaluating clearly inferior moves
+// Returns a score value indicating how favorable a board position is for the AI
+
+
+// findBestMove(): Uses the minimax function to evaluate all possible moves and selects the one with the highest score for the AI.
+// evaluate(): Checks if any player has won by examining all rows, columns, and diagonals. Returns +10 if AI wins, -10 if human wins, or 0 if no winner yet.
+// movesLeft(): Determines if there are any empty cells left on the board.
+// isGameOver(): Checks if the game has ended (win or draw) and prints the result.
+// humanMove(scanner): Handles the human player's input and updates the board accordingly.
+// printBoard(): Displays the current state of the board.
+
+// 📊 Variables Used
+
+// SIZE: Constant defining the board dimensions (3x3)
+// board[][]: 2D character array representing the game board
+// HUMAN: Character representing the human player ('X')
+// AI: Character representing the AI player ('O')
+// alpha, beta: Parameters for alpha-beta pruning to optimize the search
+// best: Tracks the best score during minimax evaluation
+// Move class: Helper class to store row and column coordinates
+
+// 🔁 Flow of Execution
+
+// Game starts with an empty 3x3 board
+// Game enters the main loop:
+
+// Human player inputs coordinates for their move
+// Board is updated and displayed
+// Game checks if human has won or if the board is full (draw)
+// AI calculates its optimal move using Minimax with Alpha-Beta Pruning
+// Board is updated and displayed
+// Game checks if AI has won or if the board is full (draw)
+
+
+// Loop continues until someone wins or the game ends in a draw
+
+// Short State Space Tree:
+// Initial Board (Empty)
+//         |
+//    Human places X
+//         |
+//    AI evaluates possible moves using Minimax+Alpha-Beta
+//         |
+//    AI places O optimally
+//         |
+//    Human places X
+//         |
+//    AI evaluates (with pruning to avoid exploring bad moves)
+//         |
+//    AI places O optimally
+//         |
+//        ...
+//         |
+//    Game ends (Win/Loss/Draw)
+// In each AI turn, the algorithm builds a game tree where:
+
+// Maximizing player (AI) chooses moves with highest value
+// Minimizing player (Human) chooses moves with lowest value
+// Alpha-Beta pruning cuts off branches that won't affect the final decision
+// The depth of the tree depends on remaining empty cells
+// Evaluation assigns scores to terminal states (+10 for AI win, -10 for Human win, 0 for draw)
+
+// This implementation ensures the AI makes optimal decisions while being computationally efficient through pruning techniques.

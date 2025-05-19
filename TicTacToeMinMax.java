@@ -149,3 +149,59 @@ public class TicTacToeMinMax {
         scanner.close();
     }
 }
+
+// Understanding the TicTacToe Minimax Algorithm
+// Problem Statement:
+// The TicTacToeMinMax.java implements a Tic Tac Toe game where a human player competes against an AI opponent that uses the Minimax algorithm to make optimal moves. The AI analyses possible future game states to choose the move that maximizes its chances of winning, while assuming the human player will also play optimally.
+// Theory:
+// 🔹 Minimax Algorithm: A decision-making algorithm used in two-player, zero-sum games (like Tic Tac Toe) where one player aims to maximize their score, and the other aims to minimize it. The algorithm recursively evaluates all possible future states of the game.
+// 🔹 Zero-Sum Game: A mathematical representation of a situation where one player's gain is equivalent to another player's loss, so the net change in total benefit is zero.
+// 🔹 Game Tree: A tree where each node represents a game state, and edges represent possible moves leading to new states.
+// Explanation of General Approach:
+// The program creates a 3x3 Tic Tac Toe board and allows the human player (X) to play against the AI (O). The AI uses the Minimax algorithm to determine the optimal move by:
+
+// Generating all possible future game states
+// Evaluating each state with scores (+10 for AI win, -10 for human win, 0 for draw)
+// Choosing the move that maximizes the AI's score, assuming the human player will play optimally
+
+// Functions Explained:
+// ⚙️ printBoard(): Displays the current state of the Tic Tac Toe board with dividing lines.
+// ⚙️ isMovesLeft(): Checks if there are empty spaces left on the board where moves can be made.
+// ⚙️ evaluate(): Analyzes the current board state to determine if someone has won, returning +10 for AI win, -10 for human win, or 0 if no winner.
+// ⚙️ minimax(): The core recursive algorithm that evaluates possible game states. It takes a boolean parameter "isMax" to alternate between maximizing player (AI) and minimizing player (human).
+// ⚙️ findBestMove(): Uses the minimax algorithm to find the optimal move for the AI by evaluating all possible moves and selecting the one with the highest score.
+// ⚙️ main(): Controls the game flow, alternating between human input and AI moves until the game ends.
+// Variables Used:
+// 📊 board[][]: 3x3 character array representing the game board, initialized with spaces.
+// 📊 isMax: Boolean parameter in minimax() that determines whose turn it is (true for AI, false for human).
+// 📊 bestVal: Tracks the best evaluation score found during minimax search.
+// 📊 bestMove: Stores the coordinates of the best move found.
+// Flow of Execution:
+
+// Game starts with an empty board displayed to the user
+// Human player enters their move coordinates (row and column)
+// Move is validated and placed on the board
+// The program checks if the human has won or if the board is full (draw)
+// The AI calls findBestMove() to determine its optimal move
+// The minimax algorithm recursively evaluates possible game states:
+
+// For AI's turn (maximizing player), it selects the move with highest value
+// For human's turn (minimizing player), it assumes human will select the move with lowest value
+
+
+// AI makes its move and the board is updated
+// The program checks if the AI has won or if the board is full
+// Steps 2-8 repeat until someone wins or the game ends in a draw
+
+// State Space Tree:
+//               Initial Board
+//                    |
+//        +-----------+-----------+
+//        |           |           |
+//   AI places O    AI places O  AI places O
+//   at (0,0)      at (0,1)     at (0,2)
+//        |           |           |
+//   /   |   \    /   |   \   /   |   \
+//  ... ... ... ... ... ... ... ... ...
+// The complete tree would be very large (9! = 362,880 possible game sequences), but the minimax algorithm efficiently evaluates the most promising branches.
+// In this implementation, the AI always plays optimally, making it either win or force a draw against a human player who doesn't play perfectly.
