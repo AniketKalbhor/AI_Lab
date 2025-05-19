@@ -1,148 +1,161 @@
 :- initialization(main).
 
-% Facts
-disease(flu, [cold, cough, dizziness, fever, headache, age(0-100), gender(any), weight(10-120), height(50-200), medical_history(none), lifestyle([non_smoker, smoker, junk_food, sedentary]), travel_history(hiking), diet([junk_food, unbalanced]), bp(90-120), heart_rate(60-100), cholesterol(150-200), blood_sugar(70-140), oxygen_saturation(95-100)]).
-disease(dengue, [fever, low_platelet, age(0-100), gender(any), weight(10-120), height(50-200), medical_history(none), lifestyle([non_smoker, smoker]), travel_history(tropical), diet([balanced, unbalanced]), bp(90-120), heart_rate(60-100), cholesterol(150-200), blood_sugar(70-140), oxygen_saturation(95-100)]).
-disease(measles, [rash, fever, cough, conjunctivitis, runny_nose, age(0-100), gender(any), weight(10-120), height(50-200), medical_history(none), lifestyle([shared_clothes, non_smoker]), travel_history(none), diet([balanced, unbalanced]), bp(90-120), heart_rate(60-100), cholesterol(150-200), blood_sugar(70-140), oxygen_saturation(95-100)]).
-disease(malaria, [fever, chills, headache, nausea, vomiting, muscle_pain, fatigue, age(0-100), gender(any), weight(10-120), height(50-200), medical_history(none), lifestyle([non_smoker]), travel_history(tropical), diet([balanced, unbalanced]), bp(90-120), heart_rate(60-100), cholesterol(150-200), blood_sugar(70-140), oxygen_saturation(95-100)]).
-disease(tuberculosis, [persistent_cough, chest_pain, coughing_up_blood, fatigue, weight_loss, fever, night_sweats, age(0-100), gender(any), weight(10-120), height(50-200), medical_history(none), lifestyle([smoker]), travel_history(none), diet([unbalanced, unbalanced]), bp(90-120), heart_rate(60-100), cholesterol(150-200), blood_sugar(70-140), oxygen_saturation(95-100)]).
-disease(covid19, [fever, cough, shortness_of_breath, fatigue, muscle_pain, loss_of_taste_or_smell, sore_throat, age(0-100), gender(any), weight(10-120), height(50-200), medical_history(none), lifestyle([non_smoker]), travel_history(recent), diet([balanced, unbalanced]), bp(90-120), heart_rate(60-100), cholesterol(150-200), blood_sugar(70-140), oxygen_saturation(95-100)]).
-disease(hypertension, [headache, dizziness, blurred_vision, chest_pain, shortness_of_breath, age(0-100), gender(any), weight(10-120), height(50-200), medical_history(none), lifestyle([smoker]), travel_history(none), diet([unbalanced, unbalanced]), bp(120-180), heart_rate(60-100), cholesterol(200-300), blood_sugar(70-140), oxygen_saturation(95-100)]).
-disease(diabetes, [increased_thirst, frequent_urination, extreme_hunger, unexplained_weight_loss, fatigue, blurred_vision, age(0-100), gender(any), weight(10-120), height(50-200), medical_history(diabetes), lifestyle([non_smoker]), travel_history(none), diet([high_carbs]), bp(90-120), heart_rate(60-100), cholesterol(150-200), blood_sugar(140-200), oxygen_saturation(95-100)]).
-disease(asthma, [shortness_of_breath, chest_tightness, wheezing, coughing, age(0-100), gender(any), weight(10-120), height(50-200), medical_history(asthma), lifestyle([non_smoker]), travel_history(none), diet([balanced]), bp(90-120), heart_rate(60-100), cholesterol(150-200), blood_sugar(70-140), oxygen_saturation(90-100)]). 
-disease(pneumonia, [cough, fever, chills, shortness_of_breath, chest_pain, fatigue, age(0-100), gender(any), weight(10-120), height(50-200), medical_history(none), lifestyle([non_smoker]), travel_history(none), diet([balanced]), bp(90-120), heart_rate(60-100), cholesterol(150-200), blood_sugar(70-140), oxygen_saturation(90-100)]). 
-disease(hepatitis_b, [fatigue, nausea, vomiting, abdominal_pain, dark_urine, jaundice, age(0-100), gender(any), weight(10-120), height(50-200), medical_history(none), lifestyle([non_smoker]), travel_history(none), diet([balanced]), bp(90-120), heart_rate(60-100), cholesterol(150-200), blood_sugar(70-140), oxygen_saturation(95-100)]).
+% Symptoms 
+symptom(leaf_spots). 
+symptom(yellow_leaves). 
+symptom(wilting). 
+symptom(powdery_substance). 
+symptom(leaf_curling). 
 
-% Predicate to diagnose disease based on symptoms and patient history
-diagnose(Disease, SymptomsAndHistory) :- 
-    disease(Disease, DiseaseSymptomsAndHistory), 
-    subset(SymptomsAndHistory, DiseaseSymptomsAndHistory).
+% Environmental Conditions 
+environment(high_humidity). 
+environment(poor_airflow). 
+environment(overwatering). 
 
-% Predicate to check if all elements of one list are in another list
-subset([], _).
-subset([age(Age)|T], List) :- 
-    member(age(Min-Max), List), 
-    Age >= Min, Age =< Max, 
-    subset(T, List).
-subset([gender(Gender)|T], List) :- 
-    (member(gender(Gender), List); member(gender(any), List)), 
-    subset(T, List).
-subset([weight(Weight)|T], List) :- 
-    member(weight(Min-Max), List), 
-    Weight >= Min, Weight =< Max, 
-    subset(T, List).
-subset([height(Height)|T], List) :- 
-    member(height(Min-Max), List), 
-    Height >= Min, Height =< Max, 
-    subset(T, List).
-subset([medical_history(History)|T], List) :- 
-    member(medical_history(History), List), 
-    subset(T, List).
-subset([lifestyle(Lifestyle)|T], List) :- 
-    member(lifestyle(L), List), 
-    subset(Lifestyle, L), 
-    subset(T, List).
-subset([travel_history(Travel)|T], List) :- 
-    member(travel_history(Travel), List), 
-    subset(T, List).
-subset([diet(Diet)|T], List) :- 
-    member(diet(D), List), 
-    subset(Diet, D), 
-    subset(T, List).
-subset([bp(BP)|T], List) :- 
-    member(bp(Min-Max), List), 
-    BP >= Min, BP =< Max, 
-    subset(T, List).
-subset([heart_rate(HeartRate)|T], List) :- 
-    member(heart_rate(Min-Max), List), 
-    HeartRate >= Min, HeartRate =< Max, 
-    subset(T, List).
-subset([cholesterol(Cholesterol)|T], List) :- 
-    member(cholesterol(Min-Max), List), 
-    Cholesterol >= Min, Cholesterol =< Max, 
-    subset(T, List).
-subset([blood_sugar(BloodSugar)|T], List) :- 
-    member(blood_sugar(Min-Max), List), 
-    BloodSugar >= Min, BloodSugar =< Max, 
-    subset(T, List).
-subset([oxygen_saturation(OxygenSaturation)|T], List) :- 
-    member(oxygen_saturation(Min-Max), List), 
-    OxygenSaturation >= Min, OxygenSaturation =< Max, 
-    subset(T, List).
-subset([H|T], List) :- 
-    member(H, List), 
-    subset(T, List).
+% Knowledge Base
+has_symptom(tulsi, powdery_substance). 
+has_symptom(tulsi, leaf_spots). 
+has_symptom(rose, wilting). 
+has_symptom(rose, yellow_leaves). 
+has_symptom(mango, leaf_curling). 
+has_symptom(mango, yellow_leaves). 
+has_symptom(basil, leaf_spots). 
+has_symptom(basil, yellow_leaves). 
+has_environment(tulsi, high_humidity). 
+has_environment(rose, overwatering). 
+has_environment(basil, poor_airflow). 
 
-% Main entry point
+% Disease Rules 
+at_risk_of_fungal_disease(Plant) :- 
+    has_symptom(Plant, powdery_substance), 
+    has_symptom(Plant, leaf_spots), 
+    has_environment(Plant, high_humidity). 
+
+at_risk_of_bacterial_disease(Plant) :- 
+    has_symptom(Plant, wilting), 
+    has_symptom(Plant, yellow_leaves), 
+    has_environment(Plant, overwatering). 
+
+at_risk_of_viral_disease(Plant) :- 
+    has_symptom(Plant, leaf_curling), 
+    has_symptom(Plant, yellow_leaves), 
+    \+ has_environment(Plant, overwatering). 
+
+% Diagnostic Predicate 
+check_plant_disease(Plant) :- 
+    at_risk_of_fungal_disease(Plant), 
+    write(Plant), write(' is at risk of fungal disease.'), nl. 
+
+check_plant_disease(Plant) :- 
+    at_risk_of_bacterial_disease(Plant), 
+    write(Plant), write(' is at risk of bacterial disease.'), nl. 
+
+check_plant_disease(Plant) :- 
+    at_risk_of_viral_disease(Plant), 
+    write(Plant), write(' is at risk of viral disease.'), nl. 
+
+check_plant_disease(Plant) :- 
+    \+ at_risk_of_fungal_disease(Plant), 
+    \+ at_risk_of_bacterial_disease(Plant), 
+    \+ at_risk_of_viral_disease(Plant), 
+    write(Plant), write(' shows no sign of serious disease.'), nl.
+
 main :- 
-    (diagnose(Disease, [fever, low_platelet, age(20), gender(any), weight(75), height(175), medical_history(none), lifestyle([non_smoker]), travel_history(tropical), diet([unbalanced]), bp(110), heart_rate(80), cholesterol(180), blood_sugar(100), oxygen_saturation(98)]) -> 
-    write('Disease: '), write(Disease), nl ; 
-    write('No diagnosis. '), nl).
+    check_plant_disease(tulsi), 
+    check_plant_disease(rose), 
+    check_plant_disease(mango), 
+    check_plant_disease(basil).
 
-# Explanation of prolog_disease.pl
+# Explanation of prolog_env.pl
 # Problem Statement:
-# The prolog_disease.pl code implements a medical diagnostic system using Prolog's logical programming paradigm. The system aims to diagnose diseases based on a patient's symptoms, medical history, and various physiological parameters. The program uses a facts-and-rules approach to determine potential diagnoses for patients with specific symptom profiles and health attributes.
+# This Prolog program is designed to diagnose plant diseases based on observed symptoms and environmental conditions. It analyzes various plants (tulsi, rose, mango, basil) to determine if they are at risk of fungal, bacterial, or viral diseases by examining their symptoms and the environmental conditions they're exposed to.
 # Theory:
-# 🔹 The program uses a knowledge base of diseases with their associated symptoms and patient characteristics.
-# 🔹 It implements logical inference to match patient symptoms against known disease profiles.
-# 🔹 The system utilizes Prolog's pattern matching and backtracking to find all possible diagnoses.
-# Constraints:
-# 🔹 Disease diagnosis requires matching symptoms and patient data against predefined disease patterns.
-# 🔹 The system can only diagnose diseases that are explicitly defined in its knowledge base.
-# 🔹 Numerical ranges (age, weight, etc.) must fall within specified limits for each disease.
-# Input:
-# 🔹 Patient symptoms (e.g., fever, cough)
-# 🔹 Patient demographic data (age, gender)
-# 🔹 Physical characteristics (weight, height)
-# 🔹 Medical history information
-# 🔹 Lifestyle factors (diet, smoking status)
-# 🔹 Travel history
-# 🔹 Vital signs (blood pressure, heart rate, etc.)
-# Output:
-# 🔹 Disease diagnosis for the patient based on the provided symptoms and characteristics.
-# ⚙️ Functions Explained
+# 🔹 Knowledge Representation: The program uses facts and rules to represent knowledge about plant diseases, symptoms, and environmental conditions.
+# 🔹 Diagnostic Logic: The diagnosis works through logical inference, where specific combinations of symptoms and environmental factors lead to different disease classifications.
+# 🔹 Negation as Failure: The program uses negation (+) to establish that certain conditions are not present, which affects disease diagnosis.
+# Explanation of functions used:
+# The program uses Prolog predicates (functions) to establish relationships between plants, symptoms, environmental conditions, and diseases:
 
-# diagnose/2: The main predicate that matches patient symptoms and history against disease profiles. It uses the subset predicate to check if patient symptoms are a subset of disease symptoms.
-# subset/2: A recursive predicate that checks if all elements from one list are contained in another list. This has multiple versions to handle different types of data (numerical ranges, categorical values, etc.).
-# main/0: The entry point of the program that tests a specific case (a patient with fever, low platelet count, etc.) and outputs the diagnosis.
+# has_symptom/2: Defines which symptoms a plant exhibits
+# has_environment/2: Defines which environmental conditions a plant is exposed to
+# at_risk_of_fungal_disease/1: Determines if a plant is at risk of fungal disease
+# at_risk_of_bacterial_disease/1: Determines if a plant is at risk of bacterial disease
+# at_risk_of_viral_disease/1: Determines if a plant is at risk of viral disease
+# check_plant_disease/1: Main diagnostic predicate that evaluates all disease risks and outputs results
 
-# 📊 Variables Used
+# Basic explanation of general approach:
+# The program follows a rule-based expert system approach:
 
-# Disease: Represents the diagnosed condition (flu, dengue, etc.)
-# SymptomsAndHistory: List of patient symptoms and characteristics to be matched against disease profiles
-# DiseaseSymptomsAndHistory: List of symptoms and characteristics associated with a specific disease
-# Numerical ranges (e.g., age(0-100), bp(90-120)): Represent acceptable ranges for physical parameters
-# Categorical values (e.g., gender(any), travel_history(tropical)): Represent discrete characteristics
+# Define facts about symptoms and environmental conditions
+# Establish which plants have which symptoms and environmental conditions
+# Create rules that determine disease risk based on combinations of symptoms and conditions
+# Apply these rules to each plant to diagnose potential diseases
+# Output the diagnostic results
 
-# 🔁 Flow of Execution
+# Variables Used:
+# 🔹 Plant: Represents the plant being diagnosed (tulsi, rose, mango, basil)
+# 🔹 Symptoms:
 
-# The program starts with the main predicate, which calls diagnose with a specific set of patient characteristics.
-# The diagnose predicate attempts to match the patient data against each disease in the knowledge base.
-# For each disease, the subset predicate checks if the patient's symptoms and characteristics are compatible with the disease profile.
-# The subset predicate handles different data types differently:
+# leaf_spots
+# yellow_leaves
+# wilting
+# powdery_substance
+# leaf_curling
+# 🔹 Environmental Conditions:
+# high_humidity
+# poor_airflow
+# overwatering
 
-# For numerical ranges (age, weight, etc.), it checks if the patient's value falls within the disease's acceptable range.
-# For categorical data (gender, medical history), it checks for exact matches or if the disease accepts any value.
-# For list-based data (lifestyle, diet), it checks if the patient's values are a subset of acceptable values.
+# Flow of Execution:
+
+# The program initializes with the main predicate
+# The main predicate calls check_plant_disease for each plant (tulsi, rose, mango, basil)
+# For each plant, the program checks:
+
+# First, if it meets the criteria for fungal disease
+# If not, checks for bacterial disease
+# If not, checks for viral disease
+# If none of the above, declares the plant shows no sign of serious disease
 
 
-# If all checks pass, the disease is identified as a match and returned as the diagnosis.
-# The result is then printed to the console.
+# The diagnosis results are printed for each plant
 
-# Short State Space Tree:
+# State Space Tree:
 # main
-# |
-# └── diagnose(Disease, [fever, low_platelet, age(20), ...])
-#     |
-#     ├── Disease = flu
-#     |   └── subset([fever, low_platelet, ...], [cold, cough, ...]) → FAIL
-#     |
-#     ├── Disease = dengue
-#     |   └── subset([fever, low_platelet, ...], [fever, low_platelet, ...]) → SUCCESS
-#     |   └── OUTPUT: "Disease: dengue"
-#     |
-#     ├── Disease = measles
-#     |   └── subset([fever, low_platelet, ...], [rash, fever, ...]) → FAIL
-#     |
-#     └── ... (other diseases) → FAIL
-# In this particular example, the system diagnoses the patient with dengue fever based on their symptoms and characteristics. The diagnosis succeeds because the patient's profile (fever, low platelet count, tropical travel history, etc.) matches the criteria for dengue fever defined in the knowledge base.
+# ├── check_plant_disease(tulsi)
+# │   └── at_risk_of_fungal_disease(tulsi)
+# │       ├── has_symptom(tulsi, powdery_substance) ✓
+# │       ├── has_symptom(tulsi, leaf_spots) ✓
+# │       └── has_environment(tulsi, high_humidity) ✓
+# │       → "tulsi is at risk of fungal disease."
+# │
+# ├── check_plant_disease(rose)
+# │   ├── at_risk_of_fungal_disease(rose) ✗
+# │   └── at_risk_of_bacterial_disease(rose)
+# │       ├── has_symptom(rose, wilting) ✓
+# │       ├── has_symptom(rose, yellow_leaves) ✓
+# │       └── has_environment(rose, overwatering) ✓
+# │       → "rose is at risk of bacterial disease."
+# │
+# ├── check_plant_disease(mango)
+# │   ├── at_risk_of_fungal_disease(mango) ✗
+# │   ├── at_risk_of_bacterial_disease(mango) ✗
+# │   └── at_risk_of_viral_disease(mango)
+# │       ├── has_symptom(mango, leaf_curling) ✓
+# │       ├── has_symptom(mango, yellow_leaves) ✓
+# │       └── \+ has_environment(mango, overwatering) ✓
+# │       → "mango is at risk of viral disease."
+# │
+# └── check_plant_disease(basil)
+#     ├── at_risk_of_fungal_disease(basil) ✗
+#     ├── at_risk_of_bacterial_disease(basil) ✗
+#     ├── at_risk_of_viral_disease(basil) ✗
+#     └── "basil shows no sign of serious disease."
+# Disease Rules Explained:
+
+# Fungal Disease Risk: A plant is at risk if it shows powdery substance, leaf spots, and is in high humidity.
+# Bacterial Disease Risk: A plant is at risk if it shows wilting, yellow leaves, and is being overwatered.
+# Viral Disease Risk: A plant is at risk if it shows leaf curling, yellow leaves, and is NOT being overwatered.
+# No Disease Risk: A plant is considered healthy if it doesn't meet any of the above criteria.
+
+# This expert system demonstrates how logical rules can be used to create a diagnostic tool for plant diseases based on observable symptoms and environmental factors, showcasing Prolog's strength in rule-based knowledge representation and inference.
