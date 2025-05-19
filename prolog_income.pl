@@ -63,3 +63,74 @@ start :-
 
 % Initialization directive
 :- initialization(start).
+
+# Prolog Career Guidance System Explanation
+# Problem Statement:
+# The prolog_income.pl program is a career guidance system that recommends potential career paths based on a user's interests. The system matches the user's input interests with predefined categories and suggests appropriate career options based on the matches found.
+# Explanation of functions used:
+# The program uses several Prolog predicates (functions) to implement the recommendation system. The main functions include intersection checking between lists, career-interest matching, and user interaction logic.
+# Basic explanation of general approach:
+# The system works by maintaining a knowledge base of career paths and their associated interest categories. When a user inputs their interests, the system finds the intersection between the user's interests and predefined interest categories. It then recommends careers based on matching categories with at least one interest overlap.
+# Explanation of variables:
+
+# Interest lists: Collections of interests associated with specific career categories
+# Categories: Career domains like sports, arts, technology, etc.
+# Careers: Specific job recommendations for each category
+# User interests: The list of interests provided by the user
+
+# Flow of execution:
+
+# The program initializes and welcomes the user
+# It prompts the user to enter their interests as a Prolog list
+# The system reads the user's input
+# It searches the knowledge base for matching interest categories
+# It identifies careers associated with matching categories
+# It outputs career recommendations or an apology if no match is found
+
+# Theory:
+# 🔹 Knowledge Representation: The program uses fact-based knowledge representation with:
+
+# Facts about careers associated with categories
+# Facts about interests associated with categories
+# Logic rules to match user interests with career paths
+
+# 🔹 List Processing: The program leverages Prolog's list processing capabilities to:
+
+# Find intersections between lists
+# Match user interests with predefined categories
+# Handle variable-length interest lists
+
+# 🔹 Pattern Matching: The system uses Prolog's pattern matching for:
+
+# Identifying matching interest categories
+# Retrieving associated career recommendations
+# Filtering out non-matching options
+
+# ⚙️ Functions Explained:
+
+# intersection/3: Finds common elements between two lists
+# interest_category/2: Maps lists of interests to career categories
+# career/2: Associates career categories with job recommendations
+# career_guidance/0: Main interaction function that handles user I/O
+# find_career/2: Core logic to match interests to careers
+# start/0: Entry point that initiates the program
+
+# 📊 Variables Used:
+
+# Interests: User-provided list of interests
+# InterestList: Predefined list of interests for a category
+# Category: Career domain (sports, arts, etc.)
+# Career: Specific job recommendation
+# Matches: Intersection between user interests and category interests
+
+# 🔁 Flow of Execution:
+
+# Program starts → initialization(start)
+# start/0 calls → career_guidance/0
+# User enters interests
+# find_career/2 processes input
+# intersection/3 identifies matching interests
+# If matches exist → retrieve and display career
+# If no matches → display apology message
+
+# The system serves as a simple expert system that demonstrates how logical programming can be used to create recommendation systems based on interest matching and predefined knowledge bases.RetryClaude can make mistakes. Please double-check responses.

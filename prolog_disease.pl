@@ -78,3 +78,71 @@ main :-
     (diagnose(Disease, [fever, low_platelet, age(20), gender(any), weight(75), height(175), medical_history(none), lifestyle([non_smoker]), travel_history(tropical), diet([unbalanced]), bp(110), heart_rate(80), cholesterol(180), blood_sugar(100), oxygen_saturation(98)]) -> 
     write('Disease: '), write(Disease), nl ; 
     write('No diagnosis. '), nl).
+
+# Explanation of prolog_disease.pl
+# Problem Statement:
+# The prolog_disease.pl code implements a medical diagnostic system using Prolog's logical programming paradigm. The system aims to diagnose diseases based on a patient's symptoms, medical history, and various physiological parameters. The program uses a facts-and-rules approach to determine potential diagnoses for patients with specific symptom profiles and health attributes.
+# Theory:
+# 🔹 The program uses a knowledge base of diseases with their associated symptoms and patient characteristics.
+# 🔹 It implements logical inference to match patient symptoms against known disease profiles.
+# 🔹 The system utilizes Prolog's pattern matching and backtracking to find all possible diagnoses.
+# Constraints:
+# 🔹 Disease diagnosis requires matching symptoms and patient data against predefined disease patterns.
+# 🔹 The system can only diagnose diseases that are explicitly defined in its knowledge base.
+# 🔹 Numerical ranges (age, weight, etc.) must fall within specified limits for each disease.
+# Input:
+# 🔹 Patient symptoms (e.g., fever, cough)
+# 🔹 Patient demographic data (age, gender)
+# 🔹 Physical characteristics (weight, height)
+# 🔹 Medical history information
+# 🔹 Lifestyle factors (diet, smoking status)
+# 🔹 Travel history
+# 🔹 Vital signs (blood pressure, heart rate, etc.)
+# Output:
+# 🔹 Disease diagnosis for the patient based on the provided symptoms and characteristics.
+# ⚙️ Functions Explained
+
+# diagnose/2: The main predicate that matches patient symptoms and history against disease profiles. It uses the subset predicate to check if patient symptoms are a subset of disease symptoms.
+# subset/2: A recursive predicate that checks if all elements from one list are contained in another list. This has multiple versions to handle different types of data (numerical ranges, categorical values, etc.).
+# main/0: The entry point of the program that tests a specific case (a patient with fever, low platelet count, etc.) and outputs the diagnosis.
+
+# 📊 Variables Used
+
+# Disease: Represents the diagnosed condition (flu, dengue, etc.)
+# SymptomsAndHistory: List of patient symptoms and characteristics to be matched against disease profiles
+# DiseaseSymptomsAndHistory: List of symptoms and characteristics associated with a specific disease
+# Numerical ranges (e.g., age(0-100), bp(90-120)): Represent acceptable ranges for physical parameters
+# Categorical values (e.g., gender(any), travel_history(tropical)): Represent discrete characteristics
+
+# 🔁 Flow of Execution
+
+# The program starts with the main predicate, which calls diagnose with a specific set of patient characteristics.
+# The diagnose predicate attempts to match the patient data against each disease in the knowledge base.
+# For each disease, the subset predicate checks if the patient's symptoms and characteristics are compatible with the disease profile.
+# The subset predicate handles different data types differently:
+
+# For numerical ranges (age, weight, etc.), it checks if the patient's value falls within the disease's acceptable range.
+# For categorical data (gender, medical history), it checks for exact matches or if the disease accepts any value.
+# For list-based data (lifestyle, diet), it checks if the patient's values are a subset of acceptable values.
+
+
+# If all checks pass, the disease is identified as a match and returned as the diagnosis.
+# The result is then printed to the console.
+
+# Short State Space Tree:
+# main
+# |
+# └── diagnose(Disease, [fever, low_platelet, age(20), ...])
+#     |
+#     ├── Disease = flu
+#     |   └── subset([fever, low_platelet, ...], [cold, cough, ...]) → FAIL
+#     |
+#     ├── Disease = dengue
+#     |   └── subset([fever, low_platelet, ...], [fever, low_platelet, ...]) → SUCCESS
+#     |   └── OUTPUT: "Disease: dengue"
+#     |
+#     ├── Disease = measles
+#     |   └── subset([fever, low_platelet, ...], [rash, fever, ...]) → FAIL
+#     |
+#     └── ... (other diseases) → FAIL
+# In this particular example, the system diagnoses the patient with dengue fever based on their symptoms and characteristics. The diagnosis succeeds because the patient's profile (fever, low platelet count, tropical travel history, etc.) matches the criteria for dengue fever defined in the knowledge base.
