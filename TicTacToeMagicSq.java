@@ -1,18 +1,20 @@
+
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 import java.util.Random;
+import java.util.Scanner;
 
 public class TicTacToeMagicSq {
+
     // Magic Square representation of Tic Tac Toe board
     static final int[][] MAGIC_SQUARE = {
-            {8, 1, 6},
-            {3, 5, 7},
-            {4, 9, 2}
+        {8, 1, 6},
+        {3, 5, 7},
+        {4, 9, 2}
     };
 
     static final int SIZE = 3;
-    static char[][] board = { {' ', ' ', ' '}, {' ', ' ', ' '}, {' ', ' ', ' '} };
+    static char[][] board = {{' ', ' ', ' '}, {' ', ' ', ' '}, {' ', ' ', ' '}};
     static boolean[] usedNumbers = new boolean[10]; // Track used numbers (1-9)
     static List<Integer> player1Moves = new ArrayList<>();
     static List<Integer> computerMoves = new ArrayList<>();
@@ -78,7 +80,7 @@ public class TicTacToeMagicSq {
         for (int i = 0; i < SIZE; i++) {
             for (int j = 0; j < SIZE; j++) {
                 if (MAGIC_SQUARE[i][j] == number) {
-                    return new int[] {i, j};
+                    return new int[]{i, j};
                 }
             }
         }
@@ -152,3 +154,129 @@ public class TicTacToeMagicSq {
         }
     }
 }
+
+// TicTacToeMagicSq.java:
+
+// Using Magic Squares for Tic-Tac-Toe AI
+// Problem Statement:
+// This code implements
+// a variant
+// of Tic-Tac-Toe using
+// the concept
+// of magic
+// squares to
+// determine winning
+// conditions.Instead of
+// the traditional
+// approach of
+// checking rows, columns, and diagonals,this
+// implementation uses a 3×3
+// magic square
+// where any
+// three numbers
+// that sum to 15
+// represent a
+// winning combination.Theory:🔹
+// Magic Square Concept:A 3×3
+// magic square
+// has numbers 1-9
+// arranged so
+// that each row,column,
+// and diagonal
+// sums to 15.
+// The specific
+// magic square
+// used is:8 1 6 3 5 7 4 9 2🔹
+// Winning Condition:
+// A player
+// wins when they'v
+// e selected
+// three positions
+// whose corresponding
+// numbers in
+// the magic
+// square sum to 15.🔹Input:
+// Player moves
+// in the
+// form of numbers 1-9(
+// corresponding to
+// positions in
+// the magic square).🔹Output:
+// The current
+// state of
+// the board
+// and game
+
+// results (win, loss, or draw).
+// ⚙️ Functions Explained
+
+// main(): Entry point that manages game flow, alternating between player and computer moves until someone wins or the board is full.
+// findPosition(): Converts a number (1-9) to its
+
+// corresponding position (row, column) on the board by searching the magic square.
+// checkWin(): Determines if a player has won by checking if any three numbers in their move list sum to 15.
+// calculateComputerMove(): Determines the best move for the computer using three strategies:
+
+// First checks if it can win in the current move
+// If not, checks if it must block the player from winning
+// Otherwise, selects a random available move
+
+
+// canFormWinningCombination(): Helper function that checks if adding a number to a player's existing moves would form a sum of 15.
+// printBoard(): Displays the current state of the Tic-Tac-Toe board.
+
+// 📊 Variables Used
+
+// MAGIC_SQUARE: A 3×3 array containing the magic square values.
+// SIZE: Constant value 3, representing the size of the board.
+// board: Character array representing the Tic-Tac-Toe board with 'X', 'O', and empty spaces.
+// usedNumbers: Boolean array to track
+
+// which numbers (1-9) have been chosen.
+// player1Moves: List of numbers chosen by Player 1.
+// computerMoves: List of numbers chosen by the computer.
+
+// 🔁 Flow of Execution
+
+// Initialize the game board and player move trackers.
+// Display the empty board to the player.
+// Enter the main game loop:
+
+// If it's Player 1's turn:
+
+// Prompt for
+
+// a number (1-9)
+// Validate the move
+// Update the board and check for a win
+
+
+// If it's the computer's turn:
+
+// Calculate the best move
+// Update the board and check for a win
+
+
+// Increment move counter
+
+
+// If the board is full without a winner, declare a draw.
+
+// Short State Space Tree:
+// Initial State: Empty board
+
+// Level 1: Player's
+
+// first move (possible positions: 1-9)
+//    ↓
+// Level 2: Computer's response
+//    ↓
+// Level 3: Player's second move
+//    ...
+
+// Terminal States:
+// - Player forms a magic sum of 15 (Player wins)
+// - Computer forms a magic sum of 15 (Computer wins)
+// - All positions filled with no magic sum (Draw)
+// General Approach:
+// The code uses a magic square approach to simplify win condition checking. By mapping each position to a number in the magic square, winning combinations become any three numbers that sum to 15. The computer AI uses a three-tier strategy: trying to win, preventing the player from winning, or making a random move. This approach provides a cleaner alternative to the traditional method of checking rows, columns, and diagonals.
