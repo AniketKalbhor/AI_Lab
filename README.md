@@ -1,0 +1,1 @@
+This repository contains all the codes for the AI Lab exam
